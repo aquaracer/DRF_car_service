@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+    command: >
+      bash -c "python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py shell < permissions_and_groups.py
+      && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/api
+    ports:
+      - "80:8000"
+    env_file:
+      - service.env
+    depends_on:
+      - postgres
+
+
+  postgres:
+    image: postgres:11-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - service.env
+
+volumes:
+  pgdata:
+
+
