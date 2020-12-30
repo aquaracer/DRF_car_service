@@ -11,9 +11,7 @@ from .serializers import (ServiceListSerializer,
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
-    """
-    CRUD информации об услуги
-    """
+    """CRUD информации об услуге"""
 
     queryset = Service.objects.all()
     filter_backends = (DjangoFilterBackend, OrderingFilter)
